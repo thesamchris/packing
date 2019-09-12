@@ -8,20 +8,42 @@
 
 #include <stdio.h>
 
-// Write your function prototype below (and remove this comment!)
+int computeMaxSlabs();
 
 int main(void) {
-	int max_slabs;
+	int max_slabs, trayX, trayY, slabX, slabY;
 
 	printf("Enter dimension of tray: ");
+	scanf("%d %d", &trayX, &trayY);
 
 	printf("Enter dimension of slab: ");
-
+	scanf("%d %d", &slabX, &slabY);
+	
+	max_slabs = computeMaxSlabs(trayX, trayY, slabX, slabY);
 	printf("Maximum number of slabs = %d\n", max_slabs);
 
 	return 0;
 }
 
-// Add your function below (and remove this comment!)
-// Every function should be preceded with a comment
-// that describes what the function does.
+// computeMaxSlabs() takes in the dimensions of the tray and slab, then returns the max_slabs
+int computeMaxSlabs(int trayX, int trayY, int slabX, int slabY) {
+	// consider case where slabX is vertical
+	int numberOfColumnsOne, numberOfRowsOne, maxSlabsOne;
+	numberOfColumnsOne = trayX / slabY;
+	numberOfRowsOne = trayY / slabX;
+	maxSlabsOne = numberOfColumnsOne * numberOfRowsOne;
+
+	// consider case where slabY is vertical
+	int numberOfColumnsTwo, numberOfRowsTwo, maxSlabsTwo;
+	numberOfColumnsTwo = trayX / slabX;
+	numberOfRowsTwo = trayY / slabY;
+	maxSlabsTwo = numberOfColumnsTwo * numberOfRowsTwo;
+
+	// see in which case, the maximum number of slabs that can be packed on the tray is greater
+	if (maxSlabsOne > maxSlabsTwo) {
+		return maxSlabsOne; 
+	}
+
+	return maxSlabsTwo;
+}
+	
